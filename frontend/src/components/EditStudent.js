@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import StudentForm from "./StudentForm";
 import Axios from "axios";
 import { useParams } from "react-router-dom";
+const API = process.env.REACT_APP_API_URL;
+
 function EditStudent(){
     const [initialValue,setInitialValue]=useState({name:"",email:"",rollNo:""});
     const [newData,setNewData]=useState([]);
     const {id}=useParams();
     useEffect(()=>{
-        Axios.get("http://localhost:4000/students/update-student/"+id)
+        Axios.get(`${API}/students/update-student/${id}`)
         .then((res) => {
             if(res.status === 200){
                 const {name,email,rollNo}=res.data;
@@ -23,7 +25,7 @@ function EditStudent(){
     }
     const handleSubmit=()=>{
         const data={name:newData[0],email:newData[1],rollNo:newData[2]}
-        Axios.put("http://localhost:4000/students/update-student/"+id,data)
+        Axios.put(`${API}/students/update-student/${id}`, data)
         .then((res)=>{
             if(res.status===200)
                 alert("Record updated")

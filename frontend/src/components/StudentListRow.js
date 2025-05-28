@@ -1,10 +1,12 @@
 import Axios from "axios";
 import {Link} from "react-router-dom";
+const API = process.env.REACT_APP_API_URL;
+
 function StudentListRow(props){
     
     const{_id,name,email,rollNo}=props.obj;
     const handleClick = () => {
-        Axios.delete("http://localhost:4000/students/delete-student/" + _id)
+        Axios.delete(`${API}/students/delete-student/${_id}`)
         .then((res) => {
             if(res.status === 200){
                 alert("Record deleted successfully");

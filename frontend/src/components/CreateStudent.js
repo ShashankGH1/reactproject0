@@ -1,6 +1,7 @@
 import { useState } from "react";
 import StudentForm from "./StudentForm";
 import Axios from 'axios';
+const API = process.env.REACT_APP_API_URL;
 
 function CreateStudent(){
     const[arr,setArr]=useState([]);
@@ -9,7 +10,7 @@ function CreateStudent(){
     }
     const handleSubmit=()=>{
         const data = {name:arr[0],email:arr[1],rollNo:arr[2]};
-        Axios.post("http://localhost:4000/students/create-student",data)
+        Axios.post(`${API}/students/create-student`, data)
         .then((res)=>{
             if(res.status===200)
                 alert("Record added successfully")
